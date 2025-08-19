@@ -10,8 +10,8 @@ What’s included:
 
 * Jellyfin (8096): media server
 * qBittorrent (8080/6881): downloader
-* Sonarr (8989): TV automation
-* Radarr (7878): Movies automation
+* Sonarr (8989): TV automation 
+* Radarr (7878): Movies automation 		API key is needed from Sonarr/Radarr so its indexes can be pulled from the service(s) request
 * Prowlarr (9696): Indexer manager
 
 Requirements:                 *sub for your directory mapping*
@@ -28,8 +28,8 @@ Disk paths you control (below)
 Create + fix permissions:
 mkdir -p /home/atsinna/jfh/{configs/{jellyfin,prowlarr,qbt,radarr,sonarr},downloads,media/{movies,tv}}
 			
-			sudo chown/chmod permissions -- sudo separates files from root and user making sonarr/radarr root folder not appear
-			docker should also be systemctl enabled
+			sudo chown/chmod permissions | sudo separates files from root and user making sonarr/radarr root folder not appear in respective UI's
+			docker should already be systemctl enabled
 
 App URLs:
 
