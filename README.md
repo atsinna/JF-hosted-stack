@@ -17,69 +17,82 @@ What’s included:
 Requirements:                 *sub for your directory mapping*
 
 Docker Engine + Docker Compose plugin
-Linux user/group UID:GID = 1000:1000 (default Ubuntu user fits)
-Disk paths you control (below)
 
-/home/atsinna/jfh/
+Linux user/group UID:GID = 1000:1000 (default Ubuntu user fits)
+
+Disk paths you control (below):
+
+/home/atsinna/jfh/		|  		*sub for your directory mapping*
+
 		/configs/{jellyfin,prowlarr,qbt,radarr,sonarr}
 		/downloads
 		/media/{movies,tv}
 
 			
 sudo chown/chmod permissions | sudo separates files from root and user making sonarr/radarr root folder not appear in respective UI's
+
 docker should already be systemctl enabled
 
 App URLs:
 
-*qBittorrent → http://<your-ip>:8080
-*Prowlarr → http://<your-ip>:9696
-*Sonarr → http://<your-ip>:8989
-*Radarr → http://<your-ip>:7878
-*Jellyfin → http://<your-ip>:8096
+* qBittorrent → http://<your-ip>:8080
+* Prowlarr → http://<your-ip>:9696
+* Sonarr → http://<your-ip>:8989
+* Radarr → http://<your-ip>:7878
+* Jellyfin → http://<your-ip>:8096
 
 .env variables (what they do):
 
-PUID,PGID		run containers as your user	1000 1000
-TZ			timezone			America/New_York
-UMASK			file perms mask			002
-BASE			base host path for volumes	/home/atsinna/jfh
-BIND_IP			where to bind ports		0.0.0.0 or 127.0.0.1
-QBT_WEB_PORT		qBittorrent UI port		8080
-QBT_BTP_PORT		BT port (TCP/UDP)		6881
-PROWLARR_PORT		Prowlarr port			9696
-SONARR_PORT		Sonarr port			8989
-RADARR_PORT		Radarr port			7878
-JELLYFIN_PORT		Jellyfin port			8096 -- may need to 8096/web
+* PUID,PGID | run containers as your user	| 1000 1000
+* TZ | timezone | ETC/UTC
+* UMASK	|		file perms mask		|	002
+* BASE		|	base host path for volumes |	/home/atsinna/jfh
+* BIND_IP		|	where to bind ports		| 0.0.0.0 or 127.0.0.1
+* QBT_WEB_PORT	|	qBittorrent UI port	|	8080
+* QBT_BTP_PORT	|	BT port (TCP/UDP)	|	6881
+* PROWLARR_PORT	|	Prowlarr port		|	9696
+* SONARR_PORT	|	Sonarr port	|		8989
+* RADARR_PORT	|	Radarr port	|		7878
+* JELLYFIN_PORT	|	Jellyfin port	|		8096 -- may need to 8096/web
 
 Service Configurations:
 
-*qBittorrent
-Default save path: /downloads
-Categories: movies → /downloads/movies, tv → /downloads/tv -- not necessary
+* qBittorrent
+		
+		Default save path: /downloads
 
-*Prowlarr
-Add indexers (public or private)
-Settings → Apps → Add Sonarr (http://sonarr:8989) and Radarr (http://radarr:7878) with their API keys
+		Categories: movies → /downloads/movies, tv → /downloads/tv -- not necessary
 
-*Sonarr/Radarr
-Root folders: /media/tv and /media/movies
-Download client: qBittorrent (qbt:8080, category tv or movies)
+* Prowlarr
 
-*Jellyfin
-Libraries: Movies → /media/movies, TV → /media/tv
-Plugins (Dashboard → Plugins): TMDb, TVDB, OMDb, OpenSubtitles (optional)
-Edit each library → Metadata settings → enable those providers
+		Add indexers (public or private)
+
+		Settings → Apps → Add Sonarr (http://sonarr:8989) and Radarr (http://radarr:7878) with their API keys
+
+* Sonarr/Radarr
+
+		Root folders: /media/tv and /media/movies
+
+		Download client: qBittorrent (qbt:8080, category tv or movies)
+
+* Jellyfin
+
+		Libraries: Movies → /media/movies, TV → /media/tv
+
+		Plugins (Dashboard → Plugins): TMDb, TVDB, OMDb, OpenSubtitles (optional)
+
+		Edit each library → Metadata settings → enable those providers
 
 Common commands:
 
-docker compose ps
-docker compose logs -f jellyfin
-docker compose pull && docker compose up -d
-docker compose down
-docker compose logs qbittorrent
-nano docker-compose.yml
+	docker compose ps
+	docker compose logs -f jellyfin
+	docker compose pull && docker compose up -d
+	docker compose down
+	docker compose logs qbittorrent
+	nano docker-compose.yml
 
-Troubleshooting quickies
+Troubleshooting quickies:
 
 Apps can’t talk (connection refused)
 Use container names on the same network: http://sonarr:8989, http://radarr:7878, http://qbt:8080
