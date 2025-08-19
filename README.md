@@ -11,7 +11,7 @@ What’s included:
 * Jellyfin (8096): media server
 * qBittorrent (8080/6881): downloader
 * Sonarr (8989): TV automation 
-* Radarr (7878): Movies automation 		API key is needed from Sonarr/Radarr so its indexes can be pulled from the service(s) request
+* Radarr (7878): Movies automation 		
 * Prowlarr (9696): Indexer manager
 
 Requirements:                 *sub for your directory mapping*
@@ -25,11 +25,9 @@ Disk paths you control (below)
 		/downloads
 		/media/{movies,tv}
 
-Create + fix permissions:
-mkdir -p /home/atsinna/jfh/{configs/{jellyfin,prowlarr,qbt,radarr,sonarr},downloads,media/{movies,tv}}
 			
-			sudo chown/chmod permissions | sudo separates files from root and user making sonarr/radarr root folder not appear in respective UI's
-			docker should already be systemctl enabled
+sudo chown/chmod permissions | sudo separates files from root and user making sonarr/radarr root folder not appear in respective UI's
+docker should already be systemctl enabled
 
 App URLs:
 
@@ -41,17 +39,17 @@ App URLs:
 
 .env variables (what they do):
 
-PUID,PGID			run containers as your user			1000, 1000
-TZ					timezone							America/New_York
-UMASK				file perms mask						002
-BASE				base host path for volumes			/home/atsinna/jfh
-BIND_IP				where to bind ports					0.0.0.0 or 127.0.0.1
-QBT_WEB_PORT		qBittorrent UI port					8080
-QBT_BTP_PORT		BT port (TCP/UDP)					6881
-PROWLARR_PORT		Prowlarr port						9696
-SONARR_PORT			Sonarr port							8989
-RADARR_PORT			Radarr port							7878
-JELLYFIN_PORT		Jellyfin port						8096 -- may need to 8096/web
+PUID,PGID		run containers as your user	1000 1000
+TZ			timezone			America/New_York
+UMASK			file perms mask			002
+BASE			base host path for volumes	/home/atsinna/jfh
+BIND_IP			where to bind ports		0.0.0.0 or 127.0.0.1
+QBT_WEB_PORT		qBittorrent UI port		8080
+QBT_BTP_PORT		BT port (TCP/UDP)		6881
+PROWLARR_PORT		Prowlarr port			9696
+SONARR_PORT		Sonarr port			8989
+RADARR_PORT		Radarr port			7878
+JELLYFIN_PORT		Jellyfin port			8096 -- may need to 8096/web
 
 Service Configurations:
 
